@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Sensor Management</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>Sensor Management</h1>
+
+    <!-- Form to add sensor -->
+    <h3>Add Sensor</h3>
+    <form th:action="@{/sensorMonitor/addSensor}" method="get">
+        <div class="form-group">
+            <label for="face">Sensor Face:</label>
+            <input type="text" class="form-control" id="face" name="face" placeholder="Enter sensor face (SOUTH, EAST, etc.)">
+        </div>
+        <div class="form-group">
+            <label for="temperature">Temperature:</label>
+            <input type="text" class="form-control" id="temperature" name="temperature" placeholder="Enter temperature">
+        </div>
+        <button type="submit" class="btn btn-primary">Add Sensor</button>
+    </form>
+
+    <!-- Form to remove sensor -->
+    <h3>Remove Sensor</h3>
+    <form th:action="@{/sensorMonitor/removeSensor}" method="post">
+        <div class="form-group">
+            <label for="removeId">Sensor ID:</label>
+            <input type="text" class="form-control" id="removeId" name="id" placeholder="Enter sensor ID to remove">
+        </div>
+        <button type="submit" class="btn btn-danger">Remove Sensor</button>
+    </form>
+
+    <!-- Button to view all sensors -->
+    <h3>View All Sensors</h3>
+    <form th:action="@{/sensorMonitor/getAvailableSensors}" method="get">
+        <button type="submit" class="btn btn-info">View All Sensors</button>
+    </form>
+
+    <!-- Button to get malfunctioning sensors -->
+    <h3>View Malfunctioning Sensors</h3>
+    <form th:action="@{/sensorMonitor/getMalfunctioningSensors}" method="get">
+        <button type="submit" class="btn btn-warning">View Malfunctioning Sensors</button>
+    </form>
+
+    <!-- Button to summarize temperatures -->
+    <h3>Summarize Hourly Temperatures for the Past Week</h3>
+    <form th:action="@{/sensorMonitor/summarizeHourlyTemperaturesForThePastWeek}" method="get">
+        <button type="submit" class="btn btn-secondary">Summarize Weekly Temperatures</button>
+    </form>
+
+    <!-- Button to summarize temperatures -->
+    <h3>Summarize Hourly Temperatures</h3>
+    <form th:action="@{/sensorMonitor/reportAverageHourlyTemperature}" method="get">
+        <button type="submit" class="btn btn-secondary">Summarize Hourly Temperatures</button>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+version: '3.8'
+services:
+  monitor:
+    image: monitor-service
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "7889:7889"
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/sensors?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 12345
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MySQL8Dialect
+
+  manager:
+    image: sensor-manager
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "8018:8018"
+    depends_on:
+      - monitor
+    environment:
+      SPRING_APPLICATION_NAME: sensor_manager
+      SERVER_PORT: 8018
+      SPRING_AUTOCONFIGURE_EXCLUDE: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345
+      MYSQL_DATABASE: sensors
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:

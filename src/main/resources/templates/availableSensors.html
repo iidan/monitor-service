@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Sensor Monitor</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body>
+<div class="container">
+  <h3>View All Sensors</h3>
+  <form th:action="@{/sensorMonitor/getAvailableSensors}" method="get">
+    <button type="submit" class="btn btn-info">View All Sensors</button>
+  </form>
+
+  <!-- Scrollable container for displaying sensors -->
+  <div class="scrollable">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Time</th>
+        <th>Face</th>
+        <th>Temperature</th>
+      </tr>
+      </thead>
+      <tbody>
+      <!-- Assuming you have a list of sensors available -->
+      <tr th:each="sensor : ${sensors}">
+        <td th:text="${sensor.id}"></td>
+        <td th:text="${sensor.time}"></td>
+        <td th:text="${sensor.face}"></td>
+        <td th:text="${sensor.temperature}"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+</html>
